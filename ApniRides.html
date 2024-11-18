@@ -8,6 +8,57 @@
   <script src="https://cdn.jsdelivr.net/npm/@heroicons/react@2.0.0-beta.4/dist/index.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
+
+  <script>
+    function findRide() {
+      // Get the values from the form inputs
+      const vehicleType = document.getElementById('vehicleType').value;
+      const pickupLocation = document.getElementById('pickupLocation').value;
+      const dropLocation = document.getElementById('dropLocation').value;
+      
+      // Validate the input values
+      if (!vehicleType || !pickupLocation || !dropLocation) {
+        alert('Please fill in all fields.');
+        return;
+      }
+      
+      // Show the available rides based on selected options
+      const availableRides = getAvailableRides(vehicleType, pickupLocation, dropLocation);
+      
+      // Display the available rides
+      const ridesContainer = document.getElementById('availableRides');
+      ridesContainer.innerHTML = ''; // Clear previous results
+      
+      if (availableRides.length > 0) {
+        const list = document.createElement('ul');
+        availableRides.forEach(ride => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${ride.type} - Available at ${ride.location}`;
+          list.appendChild(listItem);
+        });
+        ridesContainer.appendChild(list);
+      } else {
+        ridesContainer.innerHTML = 'No rides available for your selection.';
+      }
+    }
+  
+    // Dummy function to simulate getting available rides based on user input
+    function getAvailableRides(vehicleType, pickupLocation, dropLocation) {
+      const dummyRides = [
+        { type: 'Bike', location: 'Central Park' },
+        { type: 'Scooter', location: 'Downtown' },
+        { type: 'Car', location: 'Airport' }
+      ];
+  
+      // Filter the dummy rides based on vehicle type (you can add more sophisticated logic here)
+      return dummyRides.filter(ride => ride.type.toLowerCase() === vehicleType.toLowerCase());
+    }
+  </script>
+
+
   <style>
     .accordion-content {
       display: none;
@@ -52,17 +103,18 @@
       <p class="text-xl mb-8 max-w-2xl mx-auto">Choose from a wide range of vehicles and enjoy convenient, affordable rides with ApniRides.</p>
       <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <select class="block w-full border-gray-300 rounded px-4 py-2">
+          <select id="vehicleType" class="block w-full border-gray-300 rounded px-4 py-2">
             <option>Select vehicle type</option>
             <option value="bike">Bike</option>
             <option value="scooter">Scooter</option>
             <option value="car">Car</option>
           </select>
-          <input type="text" placeholder="Pick-up location" class="block w-full border-gray-300 rounded px-4 py-2">
-          <input type="text" placeholder="Drop-off location" class="block w-full border-gray-300 rounded px-4 py-2">
+          <input type="text" id="pickupLocation" placeholder="Pick-up location" class="block w-full border-gray-300 rounded px-4 py-2">
+          <input type="text" id="dropLocation" placeholder="Drop-off location" class="block w-full border-gray-300 rounded px-4 py-2">
         </div>
-        <button class="bg-blue-600 text-white px-6 py-3 rounded w-full md:w-auto">Find Your Ride</button>
+        <button onclick="findRide()" class="bg-blue-600 text-white px-6 py-3 rounded w-full md:w-auto">Find Your Ride</button>
       </div>
+      <div id="availableRides" class="mt-8"></div>
     </section>
 
     <!-- Features Section -->
