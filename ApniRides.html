@@ -12,52 +12,7 @@
 
 
 
-  <script>
-    function findRide() {
-      // Get the values from the form inputs
-      const vehicleType = document.getElementById('vehicleType').value;
-      const pickupLocation = document.getElementById('pickupLocation').value;
-      const dropLocation = document.getElementById('dropLocation').value;
-      
-      // Validate the input values
-      if (!vehicleType || !pickupLocation || !dropLocation) {
-        alert('Please fill in all fields.');
-        return;
-      }
-      
-      // Show the available rides based on selected options
-      const availableRides = getAvailableRides(vehicleType, pickupLocation, dropLocation);
-      
-      // Display the available rides
-      const ridesContainer = document.getElementById('availableRides');
-      ridesContainer.innerHTML = ''; // Clear previous results
-      
-      if (availableRides.length > 0) {
-        const list = document.createElement('ul');
-        availableRides.forEach(ride => {
-          const listItem = document.createElement('li');
-          listItem.textContent = `${ride.type} - Available at ${ride.location}`;
-          list.appendChild(listItem);
-        });
-        ridesContainer.appendChild(list);
-      } else {
-        ridesContainer.innerHTML = 'No rides available for your selection.';
-      }
-    }
-  
-    // Dummy function to simulate getting available rides based on user input
-    function getAvailableRides(vehicleType, pickupLocation, dropLocation) {
-      const dummyRides = [
-        { type: 'Bike', location: 'Central Park' },
-        { type: 'Scooter', location: 'Downtown' },
-        { type: 'Car', location: 'Airport' }
-      ];
-  
-      // Filter the dummy rides based on vehicle type (you can add more sophisticated logic here)
-      return dummyRides.filter(ride => ride.type.toLowerCase() === vehicleType.toLowerCase());
-    }
-  </script>
-
+ 
 
   <style>
     .accordion-content {
